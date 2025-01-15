@@ -4,8 +4,6 @@ const CellStatus = {
 };
 
 class Cell {
-  // A square cell to populate the grid
-
   constructor(context, x, y, size) {
     this.context = context;
     this.x = x;
@@ -17,7 +15,7 @@ class Cell {
   draw() {
     this.status === CellStatus.ALIVE
       ? (this.context.fillStyle = "#aa6f73")
-      : (this.context.fillStyle = "rgb(256 256 256)");
+      : (this.context.fillStyle = "#f6e0b5");
     this.context.strokeStyle = "black";
     this.context.lineWidth = 0.1;
     this.context.fillRect(this.x, this.y, this.size, this.size);
@@ -38,6 +36,7 @@ class Grid {
       .map(() => new Array(this.cellsPerColumn).fill(null));
 
     this.populateGrid();
+    this.draw();
   }
 
   populateGrid() {
@@ -56,9 +55,9 @@ class Grid {
     }
   }
 
-  checkNeighboringCells() {
+  updateGeneration() {
     this.generation++;
-    const nextGeneration = this.cells.map((row, y) =>
+    const nextGeneration = this.cells.map((row) =>
       row.map((cell) => new Cell(this.context, cell.x, cell.y, cell.size))
     );
 
@@ -129,8 +128,7 @@ class Grid {
 const canvas = document.getElementById("canvas");
 const generationTag = document.getElementById("generation");
 
-var grid = new Grid(canvas, 30);
-grid.draw();
+let grid = new Grid(canvas, 30);
 
 canvas.addEventListener("click", (e) => {
   const mouseX = e.clientX - canvas.getBoundingClientRect().left;
@@ -167,6 +165,8 @@ pauseButton.addEventListener("click", () => {
 const resetButton = document.getElementById("reset");
 
 resetButton.addEventListener("click", () => {
+  //! Add reset logic
+
   grid.reset();
   generationTag.innerText = `Generation: ${grid.generation}`;
   togglePause();
@@ -177,7 +177,7 @@ function animate() {
     if (!isPaused) {
       grid.clear();
       grid.draw();
-      grid.checkNeighboringCells();
+      grid.updateGeneration();
       generationTag.innerText = `Generation: ${grid.generation}`;
     }
     requestAnimationFrame(frame);

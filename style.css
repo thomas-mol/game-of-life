@@ -10,8 +10,10 @@
 }
 
 body {
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 2rem;
   background: linear-gradient(var(--color-primary), var(--color-secondary));
 }
 
@@ -20,6 +22,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 1.5rem;
   gap: 1.25rem;
 }
 
@@ -41,6 +44,22 @@ h2 {
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  li {
+    list-style: upper-roman;
+  }
 }
 
 #canvas {
