@@ -10,9 +10,8 @@
 }
 
 body {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 2rem;
   background: linear-gradient(var(--color-primary), var(--color-secondary));
 }
@@ -26,6 +25,12 @@ body {
   gap: 1.25rem;
 }
 
+.rules {
+  min-height: 80vh;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
 .button-wrapper {
   display: flex;
   justify-content: space-evenly;
@@ -33,6 +38,7 @@ body {
   width: 50%;
 
   button {
+    cursor: pointer;
     color: var(--color-light);
     background-color: var(--color-tertiary);
     border: 0.05rem solid;

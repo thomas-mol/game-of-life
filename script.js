@@ -128,7 +128,7 @@ class Grid {
 const canvas = document.getElementById("canvas");
 const generationTag = document.getElementById("generation");
 
-let grid = new Grid(canvas, 30);
+let grid = new Grid(canvas, 20);
 
 canvas.addEventListener("click", (e) => {
   const mouseX = e.clientX - canvas.getBoundingClientRect().left;
@@ -143,7 +143,9 @@ canvas.addEventListener("click", (e) => {
         mouseY <= cell.y + cell.size
     );
     if (clickedCell) {
-      clickedCell.status = CellStatus.ALIVE;
+      clickedCell.status == CellStatus.ALIVE
+        ? (clickedCell.status = CellStatus.DEAD)
+        : (clickedCell.status = CellStatus.ALIVE);
       grid.draw();
     }
   }
@@ -165,11 +167,11 @@ pauseButton.addEventListener("click", () => {
 const resetButton = document.getElementById("reset");
 
 resetButton.addEventListener("click", () => {
-  //! Add reset logic
-
   grid.reset();
   generationTag.innerText = `Generation: ${grid.generation}`;
-  togglePause();
+  if (!isPaused) {
+    togglePause();
+  }
 });
 
 function animate() {
